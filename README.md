@@ -34,8 +34,8 @@ pip3 install -r requirements.txt
 ```
 
 #### 4. 硬件要求
--LoRA 显存：>= 32G
--QLoRA 显存：>= 12G
+- LoRA 显存：>= 32G
+- QLoRA 显存：>= 12G
 
 ### 微调
 #### 1. 准备训练数据
