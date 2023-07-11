@@ -1,0 +1,21 @@
+{
+  "alpaca_gpt4_zh": {
+    "file_name": "alpaca_gpt4_data_zh.json"
+  },
+
+  "alpaca_gpt4_zh_test": {
+    "file_name": "alpaca_gpt4_data_zh_test.json"
+  },
+
+  "alpaca_gpt4_en": {
+    "file_name": "alpaca_gpt4_data_en.json"
+  },
+
+  "alpaca_zh_51k": {
+    "file_name": "alpaca_data_zh_51k.json"
+  },
+
+  "alpaca_en_52k": {
+    "file_name": "alpaca_data_en_52k.json"
+  }
+}
