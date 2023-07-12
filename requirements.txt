@@ -1,0 +1,12 @@
+accelerate
+colorama
+cpm_kernels
+sentencepiece
+streamlit
+transformers_stream_generator
+datasets>=2.12.0
+peft>=0.3.0
+jieba
+rouge_chinese
+nltk
+matplotlib
