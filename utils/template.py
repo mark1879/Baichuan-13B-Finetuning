@@ -8,12 +8,14 @@ class Template:
     name: str
 
     def __post_init__(self):
-
         if self.name == "default":
+            r"""
+            Supports: https://huggingface.co/baichuan-inc/Baichuan-13B-Chat
+            """
             self._register_template(
                 prefix="",
-                prompt="问: {query}\n答: ",
-                sep="\n",
+                prompt="<reserved_102>{query}<reserved_103>",
+                sep="",
                 use_history=True
             )
         else:
