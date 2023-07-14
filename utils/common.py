@@ -72,7 +72,7 @@ def _init_adapter(
     Note that the trainable parameters must be cast to float32.
     """
     
-    lastest_checkpoint = None
+    latest_checkpoint = None
 
     if model_args.checkpoint_dir is not None:
         logger.info("loading LoRA weight")
@@ -84,7 +84,7 @@ def _init_adapter(
             "The given checkpoint may be not a LoRA checkpoint."
 
         if (is_trainable and model_args.resume_lora_training) or (not is_mergeable):    # continually train on the lora weights
-            checkpoints_to_merge, lastest_checkpoint = model_args.checkpoint_dir[:-1], model_args.checkpoint_dir[-1]
+            checkpoints_to_merge, latest_checkpoint = model_args.checkpoint_dir[:-1], model_args.checkpoint_dir[-1]
         else:
             checkpoints_to_merge = model_args.checkpoint_dir
 
@@ -95,10 +95,10 @@ def _init_adapter(
         if len(checkpoints_to_merge) > 0:
             logger.info("Merged {} model checkpoint(s).".format(len(checkpoints_to_merge)))
 
-        if lastest_checkpoint is not None: # resume lora training or quantized inference
-            model = PeftModel.from_pretrained(model, lastest_checkpoint, is_trainable=is_trainable)
+        if latest_checkpoint is not None: # resume lora training or quantized inference
+            model = PeftModel.from_pretrained(model, latest_checkpoint, is_trainable=is_trainable)
 
-    if is_trainable and lastest_checkpoint is None: # create new lora weights while training
+    if is_trainable and latest_checkpoint is None: # create new lora weights while training
         lora_config = LoraConfig(
             task_type=TaskType.CAUSAL_LM,
             inference_mode=False,
@@ -138,7 +138,7 @@ def load_pretrained(
     tokenizer = AutoTokenizer.from_pretrained(
         model_args.model_name_or_path,
         use_fast=model_args.use_fast_tokenizer,
-        padding_side="left",
+        padding_side=model_args.padding_side,
         **config_kwargs
     )
     if tokenizer.pad_token_id is None:
@@ -377,7 +377,7 @@ def preprocess_data(
             input_ids, labels = [], []
 
             for i in range(len(dialog) // 2):
-                source_ids = tokenizer.encode(text=dialog[2*i], add_special_tokens=True)
+                source_ids = tokenizer.encode(text=dialog[2*i], add_special_tokens=(i == 0))
                 target_ids = tokenizer.encode(text=dialog[2*i+1], add_special_tokens=False)
 
                 if len(source_ids) > data_args.max_source_length:

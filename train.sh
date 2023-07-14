@@ -17,4 +17,5 @@ CUDA_VISIBLE_DEVICES=0 python finetune_lora.py \
     --plot_loss \
     --fp16  \
     --lora_target W_pack \
-    --lora_rank 8 
+    --lora_rank 8 \
+    --padding_side right
