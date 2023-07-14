@@ -82,6 +82,7 @@ pip3 install -r requirements.txt
 - **fp16**: &nbsp;&nbsp;使用半精度（混合精度）训练。
 - **lora_target**: &nbsp;&nbsp;大模型内将要进行 LoRA 微调的模块名称。
 - **lora_rank**: &nbsp;&nbsp;LoRA 微调中的秩大小。
+- **padding_side right**: &nbsp;&nbsp; pad对齐方式，左对齐或者右对齐。
 ```sh
 CUDA_VISIBLE_DEVICES=0 python finetune_lora.py \
     --do_train \
@@ -102,7 +103,8 @@ CUDA_VISIBLE_DEVICES=0 python finetune_lora.py \
     --plot_loss \
     --fp16  \
     --lora_target W_pack \
-    --lora_rank 8
+    --lora_rank 8  \
+    --padding_side right
 ```
 
 #### 3. 测试微调后的模型
@@ -115,6 +117,7 @@ CUDA_VISIBLE_DEVICES=0 python finetune_lora.py \
 - **output_dir**: &nbsp;&nbsp;测试结果保存路径。
 - **per_device_eval_batch_size**：&nbsp;&nbsp;测试数据的批处理大小。可根据 GPU 显存大小，自行设置。
 - **predict_with_generate**: &nbsp;&nbsp;是否生成序列用于计算 ROUGE 或 BLEU 分数。
+- **padding_side right**: &nbsp;&nbsp; pad对齐方式，左对齐或者右对齐。
 
 ```sh
 CUDA_VISIBLE_DEVICES=0 python finetune_lora.py \
@@ -125,7 +128,8 @@ CUDA_VISIBLE_DEVICES=0 python finetune_lora.py \
     --dataset alpaca_gpt4_zh_test \
     --output_dir baichuan_lora_eval_result \
     --per_device_eval_batch_size 1 \
-    --predict_with_generate
+    --predict_with_generate  \
+    --padding_side right
 ```
 
 #### 4. 与大模型对话
